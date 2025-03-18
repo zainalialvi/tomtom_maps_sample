@@ -3,7 +3,7 @@ import streamlit as st
 import json
 
 
-def calculate_route(api_key: str, start_lat: float, start_lon: float, end_lat: float, end_lon: float):
+def calculate_route(a: str, start_lat: float, start_lon: float, end_lat: float, end_lon: float):
     url = f"https://api.tomtom.com/routing/1/calculateRoute/{start_lat},{start_lon}:{end_lat},{end_lon}/json"
     params = {
         "routeRepresentation": "summaryOnly",
@@ -11,7 +11,7 @@ def calculate_route(api_key: str, start_lat: float, start_lon: float, end_lat: f
         "routeType": "fastest",
         "traffic": "true",
         "avoid": "unpavedRoads",
-        "key": api_key
+        "key": a
     }
     headers = {"accept": "*/*"}
 
@@ -23,14 +23,8 @@ def calculate_route(api_key: str, start_lat: float, start_lon: float, end_lat: f
         st.error(f"Error making request: {e}")
         return None
 
-
-# Streamlit UI
 st.set_page_config(page_title="TomTom Route Planner", layout="wide")
 st.title("TomTom Route Planner")
-
-# with st.sidebar:
-#     st.header("API Configuration")
-    # API_KEY = st.text_input("Enter your TomTom API Key", type="password")
 
 col1, col2 = st.columns(2)
 with col1:
@@ -52,4 +46,4 @@ if st.button("Calculate Route"):
             st.subheader("Full Response")
             st.json(route_result, expanded=False)
     else:
-        st.warning("Please enter a valid API Key.")
+        st.warning("exception")
